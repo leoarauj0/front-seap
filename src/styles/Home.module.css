@@ -102,11 +102,11 @@
   font-size: 1.25rem;
   line-height: 1.5;
 }
-
+/* 
 .logo {
   height: 1em;
   margin-left: 0.5rem;
-}
+} */
 
 @media (max-width: 600px) {
   .grid {
