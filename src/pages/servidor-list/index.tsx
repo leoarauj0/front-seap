@@ -12,6 +12,8 @@ import {
   Menu,
   Breadcrumb,
   Image,
+  Row,
+  Col,
 } from "antd";
 import {
   DesktopOutlined,
@@ -22,6 +24,7 @@ import {
 } from "@ant-design/icons";
 
 import { ServidorLista } from "../../components/Servidor-list";
+import { ServidorPesquisa } from "../../components/Servidor-pesquisa";
 import { AddSider } from "../../components/Sider";
 import { Nav } from "../../components/Nav";
 
@@ -52,7 +55,14 @@ const AddServidor: NextPage = () => {
             className="site-layout-background"
             style={{ padding: 24, minHeight: 360 }}
           >
-            <ServidorLista />
+            <Row>
+              <Col span={12}>
+                <ServidorPesquisa />
+              </Col>
+              <Col span={12}>
+                <ServidorLista />
+              </Col>
+            </Row>
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>

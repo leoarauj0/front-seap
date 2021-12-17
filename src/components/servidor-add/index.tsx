@@ -7,11 +7,6 @@ import ServidorDataService from "../../services/servidor.service";
 import IServidorData from "../../types/servidor.type";
 import ILotacoesData from "../../types/lotacao.type";
 
-import { useRouter } from "next/router";
-
-import { Link } from "../Link";
-import { alertService } from "../../services";
-
 type Props = {};
 
 const { Option } = Select;
@@ -32,13 +27,15 @@ type Servidor = IServidorData;
 type Lotacoes = ILotacoesData;
 
 export function ServidorAdd() {
-  function onFinish(data: any) {
+  function onFinish(form: any) {
     // const router = useRouter();
-    setServidores(data);
+    setServidores(form);
+    const data = form;
 
     return ServidorDataService.create(data)
       .then(() => {
         console.log(data);
+        console.log(servidores);
         // router.push("/");
       })
       .catch(Error);

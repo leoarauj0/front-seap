@@ -26,8 +26,8 @@ class ServidorDataService {
     return api.delete<any>(`/servidores`);
   }
 
-  findByTitle(title: string) {
-    return api.get<Array<IServidorData>>(`/servidores?title=${title}`);
+  findByTitle(matricula: string) {
+    return api.get<Array<IServidorData>>(`/servidores?matricula=${matricula}`);
   }
 }
 
