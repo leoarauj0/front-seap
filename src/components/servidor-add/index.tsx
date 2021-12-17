@@ -1,48 +1,91 @@
-import { useEffect, useState } from "react";
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useEffect, useState, Component, ChangeEvent } from "react";
 import { api } from "../../services/api";
 import { Form, Input, Button, Select, DatePicker } from "antd";
 import { FormInstance } from "antd/es/form";
+import ServidorDataService from "../../services/servidor.service";
+import IServidorData from "../../types/servidor.type";
+import ILotacoesData from "../../types/lotacao.type";
+
+import { useRouter } from "next/router";
+
+import { Link } from "../Link";
+import { alertService } from "../../services";
+
+type Props = {};
 
 const { Option } = Select;
 
 const layout = {
-  labelCol: { span: 3 },
+  labelCol: { span: 16 },
   wrapperCol: { span: 16 },
 };
 const tailLayout = {
   wrapperCol: { offset: 1, span: 16 },
 };
 
-type Servidor = {
-  id: string;
-  nome: string;
-  matricula: string;
-  data_cadastro: Date;
-  lotacoes: {
-    descricao: string;
-    data_cadastro: Date;
-  };
-};
+// type State = IServidorData & {
+//   submitted: boolean;
+// };
+type Servidor = IServidorData;
 
-type Lotacoes = {
-  id: string;
-  descricao: string;
-  data_cadastro: Date;
-};
+type Lotacoes = ILotacoesData;
 
 export function ServidorAdd() {
+  function onFinish(data: any) {
+    // const router = useRouter();
+    setServidores(data);
+
+    return ServidorDataService.create(data)
+      .then(() => {
+        console.log(data);
+        // router.push("/");
+      })
+      .catch(Error);
+  }
+
+  const [servidores, setServidores] = useState<Servidor>();
   const [lotacoes, setLotacoes] = useState<Lotacoes[]>([]);
 
   useEffect(() => {
     //chamada pra API
     api.get("/lotacoes").then((response) => {
       setLotacoes(response.data);
+      console.log(response.data);
     });
   }, []);
 
-  const onFinish = (values: any) => {
-    console.log(values);
-  };
+  // function saveServidor() {
+  //   const data: IServidorData = {
+  //     nome:
+  //     description: this.state.description
+  //   };
+
+  //   ServidorDataService.create(data)
+  //     .then((response: any) => {
+  //       setServidores({
+  //         id: response.data.id,
+  //         title: response.data.title,
+  //         description: response.data.description,
+  //         published: response.data.published,
+  //         submitted: true
+  //       });
+  //       console.log(response.data);
+  //     })
+  //     .catch((e: Error) => {
+  //       console.log(e);
+  //     });
+  // }
+
+  // newServidor() {
+  //   this.setState({
+  //     id: null,
+  //     title: "",
+  //     description: "",
+  //     published: false,
+  //     submitted: false
+  //   });
+  // }
 
   return (
     <Form
@@ -75,7 +118,7 @@ export function ServidorAdd() {
         >
           {lotacoes.map((lotacao) => {
             return (
-              <Option value={lotacao.descricao} key={lotacao.id}>
+              <Option value={lotacao.id} key={lotacao.id}>
                 {" "}
                 {lotacao.descricao}
               </Option>
@@ -83,24 +126,7 @@ export function ServidorAdd() {
           })}
         </Select>
       </Form.Item>
-      {/* <Form.Item
-        noStyle
-        shouldUpdate={(prevValues, currentValues) =>
-          prevValues.gender !== currentValues.gender
-        }
-      >
-        {({ getFieldValue }) =>
-          getFieldValue("gender") === "other" ? (
-            <Form.Item
-              name="customizeGender"
-              label="Customize Gender"
-              rules={[{ required: true }]}
-            >
-              <Input />
-            </Form.Item>
-          ) : null
-        }
-      </Form.Item> */}
+
       <Form.Item {...tailLayout}>
         <Button type="primary" htmlType="submit">
           Enviar

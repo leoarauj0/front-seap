@@ -21,7 +21,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 
-import { ServidorAdd } from "../../components/Servidor-add";
+import { ServidorLista } from "../../components/Servidor-list";
 import { AddSider } from "../../components/Sider";
 import { Nav } from "../../components/Nav";
 
@@ -52,7 +52,7 @@ const AddServidor: NextPage = () => {
             className="site-layout-background"
             style={{ padding: 24, minHeight: 360 }}
           >
-            <ServidorAdd />
+            <ServidorLista />
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>

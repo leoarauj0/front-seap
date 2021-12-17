@@ -4,27 +4,13 @@ import Imagee from "next/image";
 import { useEffect, useState } from "react";
 import { api } from "../services/api";
 import styles from "../styles/Home.module.css";
-import { AddFooter } from "../components/footer";
+import { AddFooter } from "../components/Footer";
+import { Nav } from "../components/Nav";
 import "antd/dist/antd.css";
-import {
-  Button,
-  DatePicker,
-  version,
-  message,
-  Layout,
-  Menu,
-  Breadcrumb,
-  Image,
-} from "antd";
-import {
-  DesktopOutlined,
-  PieChartOutlined,
-  FileOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import { Layout, Menu } from "antd";
 
-import { ServidorLista } from "../components/servidor-list";
+import { ServidorLista } from "../components/Servidor-list";
+import { AddSider } from "../components/Sider";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -42,31 +28,12 @@ const Home: NextPage = () => {
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
-        <div className="logo" />
-        <Image
-          width={80}
-          src="https://d1fdloi71mui9q.cloudfront.net/ZOqMGEtMRlqPNw6i9U1n_I2A5NYcX4ro4lqo1"
-        />
-        <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-          <Menu.Item key="1" icon={<TeamOutlined />}>
-            Listar Servidores
-          </Menu.Item>
-          <Menu.Item key="2" icon={<UserOutlined />}>
-            Cadastrar Servidores
-          </Menu.Item>
-          <Menu.Item key="3" icon={<PieChartOutlined />}>
-            Listar Lotação
-          </Menu.Item>
-          <Menu.Item key="4" icon={<FileOutlined />}>
-            Cadastrar Lotação
-          </Menu.Item>
-          {/* <SubMenu key="sub1" icon={<DesktopOutlined />} title="User">
-            <Menu.Item key="3">Tom</Menu.Item>
-          </SubMenu> */}
-        </Menu>
+        <AddSider />
       </Sider>
       <Layout className="site-layout">
-        <Header className="site-layout-background" style={{ padding: 0 }} />
+        <Header className="site-layout-background" style={{ padding: 0 }}>
+          <Nav />
+        </Header>
         <Content style={{ margin: "0 16px" }}>
           {/* <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>User</Breadcrumb.Item>
