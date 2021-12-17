@@ -34,17 +34,17 @@ const columns = [
     dataIndex: "lotacao",
     key: "lotacao",
   },
-  // {
-  //   title: "",
-  //   dataIndex: "acoes",
-  //   key: "acoes",
-  //   render: () => (
-  //     <Space size="middle">
-  //       <a>Editar</a>
-  //       <a>Delete</a>
-  //     </Space>
-  //   ),
-  // },
+  {
+    title: "",
+    dataIndex: "acoes",
+    key: "acoes",
+    render: () => (
+      <Space size="middle">
+        <a>Editar</a>
+        <a>Deletar</a>
+      </Space>
+    ),
+  },
 ];
 
 export function ServidorPesquisa() {

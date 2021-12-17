@@ -39,10 +39,14 @@ export function AddSider() {
           </NavLink>
         </Menu.Item>
         <Menu.Item key="3" icon={<PieChartOutlined />}>
-          Listar Lotação
+          <NavLink href="/lotacao-list" className="nav-color nav-link">
+            Listar Lotação
+          </NavLink>
         </Menu.Item>
         <Menu.Item key="4" icon={<FileOutlined />}>
-          Cadastrar Lotação
+          <NavLink href="/lotacao-add" className="nav-color nav-link">
+            Cadastrar Lotação
+          </NavLink>
         </Menu.Item>
       </Menu>
     </>

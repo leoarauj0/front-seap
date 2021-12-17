@@ -1,29 +1,27 @@
 import { useState, useEffect } from "react";
 import { api } from "../../services/api";
 import { Table, Tag, Space } from "antd";
-import IServidorData from "../../types/servidor.type";
 import ILotacoesData from "../../types/lotacao.type";
-
-type Servidor = IServidorData;
 
 type Lotacoes = ILotacoesData;
 
 const columns = [
+  {
+    title: "ID",
+    dataIndex: "id",
+    key: "id",
+  },
   {
     title: "Nome",
     dataIndex: "nome",
     key: "nome",
   },
   {
-    title: "Matricula",
-    dataIndex: "matricula",
-    key: "matricula",
+    title: "Descrição",
+    dataIndex: "descricao",
+    key: "descricao",
   },
-  {
-    title: "Lotacão",
-    dataIndex: "lotacao",
-    key: "lotacao",
-  },
+
   {
     title: "",
     dataIndex: "acoes",
@@ -37,20 +35,20 @@ const columns = [
   },
 ];
 
-export function ServidorLista() {
-  const [servidores, setServidores] = useState<Servidor[]>([]);
+export function LotacaoLista() {
+  const [lotacoes, setLotacoes] = useState<Lotacoes[]>([]);
 
   useEffect(() => {
     //chamada pra API
-    api.get("/servidores").then((response) => {
-      setServidores(response.data);
+    api.get("/lotacoes").then((response) => {
+      setLotacoes(response.data);
     });
   }, []);
 
   return (
     <>
       <h1>Lista de Servidores:</h1>
-      <Table columns={columns} dataSource={servidores} />
+      <Table columns={columns} dataSource={lotacoes} />
     </>
   );
 }

@@ -1,5 +1,7 @@
 export default interface ILotacoes {
   id?: any | null;
+  nome: string;
   descricao: string;
-  data_cadastro: Date;
+  dateCreated: Date;
+  dateUpdated: Date;
 }

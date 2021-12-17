@@ -6,6 +6,7 @@ import { FormInstance } from "antd/es/form";
 import ServidorDataService from "../../services/servidor.service";
 import IServidorData from "../../types/servidor.type";
 import ILotacoesData from "../../types/lotacao.type";
+import { useRouter } from "next/router";
 
 type Props = {};
 
@@ -27,16 +28,19 @@ type Servidor = IServidorData;
 type Lotacoes = ILotacoesData;
 
 export function ServidorAdd() {
+  const router = useRouter();
+
   function onFinish(form: any) {
-    // const router = useRouter();
     setServidores(form);
     const data = form;
+    data.dateCreated = new Date();
+    data.dateUpdated = new Date();
 
     return ServidorDataService.create(data)
       .then(() => {
         console.log(data);
         console.log(servidores);
-        // router.push("/");
+        router.push("/servidor-list");
       })
       .catch(Error);
   }

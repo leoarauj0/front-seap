@@ -8,10 +8,10 @@ export function Nav() {
         <NavLink href="/" exact className="nav-item nav-color nav-link">
           Home
         </NavLink>
-        <NavLink href="/servidor-add" className="nav-item nav-color nav-link">
+        <NavLink href="/servidor-list" className="nav-item nav-color nav-link">
           Servidores
         </NavLink>
-        <NavLink href="/lotacoes" className="nav-item nav-color nav-link">
+        <NavLink href="/lotacao-list" className="nav-item nav-color nav-link">
           Lotações
         </NavLink>
       </div>
