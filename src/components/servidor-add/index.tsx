@@ -35,6 +35,7 @@ export function ServidorAdd() {
     const data = form;
     data.dateCreated = new Date();
     data.dateUpdated = new Date();
+    // form.resetFields();
 
     return ServidorDataService.create(data)
       .then(() => {

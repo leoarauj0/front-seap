@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { api } from "../../services/api";
 import { Input, Table, Tag, Space } from "antd";
 import { AudioOutlined } from "@ant-design/icons";
+const { Column, ColumnGroup } = Table;
 
 import LotacaoDataService from "../../services/lotacao.service";
 import ILotacoesData from "../../types/lotacao.type";
@@ -9,36 +10,6 @@ import ILotacoesData from "../../types/lotacao.type";
 type Lotacoes = ILotacoesData;
 
 const { Search } = Input;
-
-const columns = [
-  {
-    title: "ID",
-    dataIndex: "id",
-    key: "id",
-  },
-  {
-    title: "Nome",
-    dataIndex: "nome",
-    key: "nome",
-  },
-  {
-    title: "Descrição",
-    dataIndex: "descricao",
-    key: "descricao",
-  },
-
-  {
-    title: "",
-    dataIndex: "acoes",
-    key: "acoes",
-    render: () => (
-      <Space size="middle">
-        <a>Editar</a>
-        <a>Deletar</a>
-      </Space>
-    ),
-  },
-];
 
 export function LotacaoPesquisa() {
   const [lotacoes, setLotacoes] = useState<Lotacoes[]>([]);
@@ -55,6 +26,16 @@ export function LotacaoPesquisa() {
       .catch(Error);
   };
 
+  const deletarLotacao = (record: any) => {
+    const id = record.id;
+
+    return LotacaoDataService.delete(id)
+      .then(() => {
+        return setLotacoes([]);
+      })
+      .catch(Error);
+  };
+
   return (
     <>
       <Space direction="vertical">
@@ -65,7 +46,28 @@ export function LotacaoPesquisa() {
           enterButton
         />
       </Space>
-      <Table columns={columns} dataSource={lotacoes} className="table" />
+      <Table dataSource={lotacoes} className="table">
+        <Column title="Id" dataIndex="id" key="id" />
+        <Column title="Nome" dataIndex="nome" key="nome" />
+        <Column title="Descricao" dataIndex="descricao" key="descricao" />
+        <Column
+          title=""
+          key="action"
+          render={(text, record) => (
+            <Space size="middle">
+              <a>Editar</a>
+
+              <a
+                onClick={() => {
+                  deletarLotacao(record);
+                }}
+              >
+                Deletar
+              </a>
+            </Space>
+          )}
+        />
+      </Table>
     </>
   );
 }

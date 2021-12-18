@@ -14,7 +14,7 @@ class LotacaoDataService {
     return api.post<ILotacaoData>("/lotacoes", data);
   }
 
-  update(data: ILotacaoData, id: any) {
+  update(id: any, data: ILotacaoData) {
     return api.put<any>(`/lotacoes/${id}`, data);
   }
 

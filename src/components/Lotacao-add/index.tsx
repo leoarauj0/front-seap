@@ -8,8 +8,6 @@ import IServidorData from "../../types/servidor.type";
 import ILotacoesData from "../../types/lotacao.type";
 import { useRouter } from "next/router";
 
-type Props = {};
-
 const { Option } = Select;
 
 const layout = {
@@ -27,7 +25,10 @@ type Servidor = IServidorData;
 
 type Lotacoes = ILotacoesData;
 
-export function LotacaoAdd() {
+export function LotacaoAdd(props: any) {
+  const lotacao = props?.lotacao;
+  const isAddMode = !lotacao;
+
   const router = useRouter();
 
   function onFinish(form: any) {
@@ -36,7 +37,20 @@ export function LotacaoAdd() {
     data.dateCreated = new Date();
     data.dateUpdated = new Date();
 
+    return isAddMode ? createLotacao(data) : updateLotacao(lotacao.id, data);
+  }
+
+  function createLotacao(data: any) {
     return LotacaoDataService.create(data)
+      .then(() => {
+        console.log(data);
+        router.push("/lotacao-list");
+      })
+      .catch(Error);
+  }
+
+  function updateLotacao(id: any, data: any) {
+    return LotacaoDataService.update(id, data)
       .then(() => {
         console.log(data);
         router.push("/lotacao-list");
@@ -63,7 +77,8 @@ export function LotacaoAdd() {
       layout="vertical"
       // onValuesChange={onFormLayoutChange}
     >
-      <h1>Cadastro de Lotação</h1>
+      <h1>{isAddMode ? "Cadastro de Lotação" : "Editar Lotação"}</h1>
+
       <br />
       <Form.Item name="nome" label="Nome" rules={[{ required: true }]}>
         <Input placeholder="Nome" maxLength={100} />
