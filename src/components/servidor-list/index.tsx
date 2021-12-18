@@ -1,16 +1,6 @@
 import { useState, useEffect } from "react";
 import { api } from "../../services/api";
-import {
-  Table,
-  Tag,
-  Space,
-  Modal,
-  Form,
-  Input,
-  Button,
-  Select,
-  DatePicker,
-} from "antd";
+import { Table, Space, Modal, Input, Select } from "antd";
 import IServidorData from "../../types/servidor.type";
 import ILotacoesData from "../../types/lotacao.type";
 const { Column, ColumnGroup } = Table;
@@ -36,13 +26,11 @@ type ServidorData = IServidorData;
 
 export function ServidorLista() {
   const [editando, setEditando] = useState(false);
-  const [data, setData] = useState<ServidorData[]>([]);
   const [editServ, setEditServ] = useState<ServidorData>();
 
   const [lotacoes, setLotacoes] = useState<Lotacoes[]>([]);
 
   useEffect(() => {
-    //chamada pra API
     api.get("/lotacoes").then((response) => {
       setLotacoes(response.data);
     });
@@ -51,7 +39,6 @@ export function ServidorLista() {
   const [servidores, setServidores] = useState<Servidor[]>([]);
 
   useEffect(() => {
-    //chamada pra API
     api.get("/servidores").then((response) => {
       setServidores(response.data);
     });
@@ -61,8 +48,6 @@ export function ServidorLista() {
     console.log(record);
     setEditando(true);
     setEditServ({ ...record });
-    //     const id = record.id;
-    // const data = record;
   };
 
   const deletarServidor = (record: any) => {
